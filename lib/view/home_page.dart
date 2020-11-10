@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
 import 'package:meteo_koji/controller/color.dart';
+import 'package:meteo_koji/models/temperature.dart';
 import 'package:meteo_koji/view/widget/my_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -98,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     setState(() {
                       cityChoice = null;
+                      coordsCityChoice = null;
                       Navigator.pop(context);
                     });
                   },
@@ -228,6 +233,7 @@ class _HomePageState extends State<HomePage> {
       final String cityName = cityFind.first.locality;
       // final String cityCode = cityFind.first.postalCode;
       print("City => $cityName");
+      sendCoordsToAPI();
     }
   }
 
@@ -240,7 +246,50 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         coordsCityChoice = coords;
         print("city => $city et coordonnées $coords");
+        sendCoordsToAPI();
       });
+    }
+  }
+
+  /// CALL API OPEN WEATHER MAP ----------------------------------
+
+  void sendCoordsToAPI() {
+    //init var
+    double latitude, longitude;
+    if (coordsCityChoice != null) {
+      // lors d'un click sur une ville specifique
+      latitude = coordsCityChoice.latitude;
+      longitude = coordsCityChoice.longitude;
+    } else if (locationData != null) {
+      // lors que l'on est sur la ville de location du telephone
+      latitude = locationData.latitude;
+      longitude = locationData.longitude;
+    }
+    formatUrlApi(latitude, longitude);
+  }
+
+  void formatUrlApi(double latitude, double longitude) {
+    //recover lang Smartphone
+    String lang = Localizations.localeOf(context).languageCode;
+    final String key = "a6a18c57fb2e85d26a89f08d32caf0d8";
+    //organisation diff string for call
+    String urlApiKey = "&appid=$key";
+    String urlApiBase = "https://api.openweathermap.org/data/2.5/weather?";
+    String urlApiCoords = "lat=$latitude&lon=$longitude";
+    String urlApiMetrics = "&units=metric";
+    String urlApiLang = "&lang=$lang";
+    String urlApiTotal =
+        urlApiBase + urlApiCoords + urlApiMetrics + urlApiLang + urlApiKey;
+    callApi(urlApiTotal);
+  }
+
+  void callApi(String urlApiTotal) async {
+    final response = await http.get(urlApiTotal);
+    if (response.statusCode == 200) {
+      print(response.body);
+      var json = jsonDecode(response.body);
+      WeatherCity city = WeatherCity.fromJson(json);
+      print("A clermont il fait => ${city.temp}");
     }
   }
 }
