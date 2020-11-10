@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
 import 'package:meteo_koji/controller/color.dart';
-import 'package:meteo_koji/models/temperature.dart';
+import 'package:meteo_koji/models/weather_city.dart';
 import 'package:meteo_koji/view/widget/my_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -31,6 +31,9 @@ class _HomePageState extends State<HomePage> {
 
   //var coordinates
   Coordinates coordsCityChoice;
+
+  //var WeatherCity
+  WeatherCity weatherCity;
 
   @override
   void initState() {
@@ -286,10 +289,14 @@ class _HomePageState extends State<HomePage> {
   void callApi(String urlApiTotal) async {
     final response = await http.get(urlApiTotal);
     if (response.statusCode == 200) {
-      print(response.body);
+      /// converti le body response in json and pass them
+      /// in the Obect WeatherCity
       var json = jsonDecode(response.body);
-      WeatherCity city = WeatherCity.fromJson(json);
-      print("A clermont il fait => ${city.temp}");
+      setState(() {
+        weatherCity = WeatherCity.fromJson(json);
+        print("Dans la ville geoloc fait => ${weatherCity.temp}");
+        print("et le ciel => ${weatherCity.description}");
+      });
     }
   }
 }
