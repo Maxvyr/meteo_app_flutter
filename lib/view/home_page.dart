@@ -25,6 +25,9 @@ class _HomePageState extends State<HomePage> {
   LocationData locationData;
   Stream<LocationData> stream;
 
+  //var coordinates
+  Coordinates coordsCityChoice;
+
   @override
   void initState() {
     super.initState();
@@ -118,6 +121,7 @@ class _HomePageState extends State<HomePage> {
                     //change ville and close drawer
                     setState(() {
                       cityChoice = ville;
+                      getLocationWithCity(cityChoice);
                       Navigator.pop(context);
                     });
                   },
@@ -146,7 +150,6 @@ class _HomePageState extends State<HomePage> {
               decoration: InputDecoration(labelText: "Ville :"),
               onSubmitted: (String str) {
                 addStringListSharedPref(str);
-                getLocationWithCity(str);
                 Navigator.pop(context);
               },
             )
@@ -229,11 +232,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   getLocationWithCity(String city) async {
-    final positionFind = await Geocoder.local.findAddressesFromQuery(city);
-    var coordinatesFind = positionFind.first.coordinates;
-    final double longitudeCity = coordinatesFind.longitude;
-    final double latitudeCity = coordinatesFind.latitude;
-    print("City => $city ----- longitude $longitudeCity ---- latitude "
-        "$latitudeCity");
+    if (city != null) {
+      final adresses = await Geocoder.local.findAddressesFromQuery(city);
+      var coords = adresses.first.coordinates;
+      final double longitudeCity = coords.longitude;
+      final double latitudeCity = coords.latitude;
+      setState(() {
+        coordsCityChoice = coords;
+        print("city => $city et coordonnées $coords");
+      });
+    }
   }
 }
