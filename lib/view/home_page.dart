@@ -35,6 +35,11 @@ class _HomePageState extends State<HomePage> {
   //var WeatherCity
   WeatherCity weatherCity;
 
+  //imageBackground
+  NetworkImage imgNight = NetworkImage("https://imgur.com/8MmKx2M.png");
+  NetworkImage imgBadWeather = NetworkImage("https://imgur.com/tyJiWK4.png");
+  NetworkImage imgGoodNight = NetworkImage("https://imgur.com/FSrDrJ7.png");
+
   @override
   void initState() {
     super.initState();
@@ -52,11 +57,22 @@ class _HomePageState extends State<HomePage> {
         title: MyText(data: widget.title),
       ),
       drawer: drawerMeteo(),
-      body: Center(
-        child: MyText(
-          data: cityChoice ?? "Ville Actuelle",
-        ),
-      ),
+      body: weatherCity == null
+          ? Center(
+              child: MyText(
+                data: cityChoice ?? "Ville Actuelle",
+              ),
+            )
+          : Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: getBackground(),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
     );
   }
 
@@ -165,6 +181,25 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  NetworkImage getBackground() {
+    /// check this link https://openweathermap.org/weather-conditions
+    /// to know the icon name for each weather
+    /// if contains n so night
+    print("icon weater => ${weatherCity.icon}");
+    if (weatherCity.icon.contains("n")) {
+      return imgNight;
+    } else {
+      if (weatherCity.icon.contains("01") ||
+          weatherCity.icon.contains("02") ||
+          weatherCity.icon.contains("03") ||
+          weatherCity.icon.contains("04")) {
+        return imgGoodNight;
+      } else {
+        return imgBadWeather;
+      }
+    }
   }
 
   /// SHARED PREF --------------------------------------------------
@@ -292,11 +327,12 @@ class _HomePageState extends State<HomePage> {
       /// converti le body response in json and pass them
       /// in the Obect WeatherCity
       var json = jsonDecode(response.body);
-      setState(() {
-        weatherCity = WeatherCity.fromJson(json);
-        print("Dans la ville geoloc fait => ${weatherCity.temp}");
-        print("et le ciel => ${weatherCity.description}");
-      });
+      setState(
+        () {
+          weatherCity = WeatherCity.fromJson(json);
+          print("la ville geoloc fait => ${weatherCity.name}");
+        },
+      );
     }
   }
 }
