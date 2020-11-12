@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meteo_koji/controller/color.dart';
+import '../../controller/color.dart';
 
 import 'my_text.dart';
 

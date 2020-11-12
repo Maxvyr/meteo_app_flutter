@@ -1,4 +1,4 @@
-/// Object for deconding the API Open Weather Map
+/// Object for decoding the API Open Weather Map
 class WeatherCity {
   //Variable
   Map coord;
