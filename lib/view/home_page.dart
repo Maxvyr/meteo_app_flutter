@@ -5,6 +5,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
 import 'package:meteo_koji/controller/color.dart';
 import 'package:meteo_koji/models/weather_city.dart';
+import 'package:meteo_koji/view/widget/container_background.dart';
 import 'package:meteo_koji/view/widget/my_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   String key = "LISTE_VILLES";
   List<String> cities = [];
   String cityChoice;
+  String cityLiving = "Ville Actuelle";
 
   //var location user
   Location location;
@@ -34,11 +36,6 @@ class _HomePageState extends State<HomePage> {
 
   //var WeatherCity
   WeatherCity weatherCity;
-
-  //imageBackground
-  NetworkImage imgNight = NetworkImage("https://imgur.com/8MmKx2M.png");
-  NetworkImage imgBadWeather = NetworkImage("https://imgur.com/tyJiWK4.png");
-  NetworkImage imgGoodNight = NetworkImage("https://imgur.com/FSrDrJ7.png");
 
   @override
   void initState() {
@@ -60,19 +57,10 @@ class _HomePageState extends State<HomePage> {
       body: weatherCity == null
           ? Center(
               child: MyText(
-                data: cityChoice ?? "Ville Actuelle",
+                data: cityChoice ?? cityLiving,
               ),
             )
-          : Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: getBackground(),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+          : ContainerBackground(weatherCity, cityChoice, cityLiving),
     );
   }
 
@@ -115,13 +103,14 @@ class _HomePageState extends State<HomePage> {
               case 1:
                 return ListTile(
                   title: MyText(
-                    data: "Ville actuelle",
+                    data: cityLiving,
                     color: white,
                   ),
                   onTap: () {
                     setState(() {
                       cityChoice = null;
                       coordsCityChoice = null;
+                      sendCoordsToAPI();
                       Navigator.pop(context);
                     });
                   },
@@ -181,25 +170,6 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
-  }
-
-  NetworkImage getBackground() {
-    /// check this link https://openweathermap.org/weather-conditions
-    /// to know the icon name for each weather
-    /// if contains n so night
-    print("icon weater => ${weatherCity.icon}");
-    if (weatherCity.icon.contains("n")) {
-      return imgNight;
-    } else {
-      if (weatherCity.icon.contains("01") ||
-          weatherCity.icon.contains("02") ||
-          weatherCity.icon.contains("03") ||
-          weatherCity.icon.contains("04")) {
-        return imgGoodNight;
-      } else {
-        return imgBadWeather;
-      }
-    }
   }
 
   /// SHARED PREF --------------------------------------------------
@@ -268,10 +238,10 @@ class _HomePageState extends State<HomePage> {
           Coordinates(locationData.latitude, locationData.longitude);
       final cityFind =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
-      final String cityName = cityFind.first.locality;
-      // final String cityCode = cityFind.first.postalCode;
-      print("City => $cityName");
-      sendCoordsToAPI();
+      setState(() {
+        cityLiving = cityFind.first.locality;
+        sendCoordsToAPI();
+      });
     }
   }
 

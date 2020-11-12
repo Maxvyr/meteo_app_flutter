@@ -1,0 +1,46 @@
+{
+  "name": "IconWeather",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "10a318697943174cd21a6796a0784e7d",
+      "css": "angle_double_up",
+      "code": 61698,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "6150f4a7c1bbda842c3aa6d4727e3e3e",
+      "css": "angle_double_down",
+      "code": 61699,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "5c49851100aa021825b346d16d7f3abf",
+      "css": "temperatire",
+      "code": 59392,
+      "src": "typicons"
+    },
+    {
+      "uid": "bd82f6077f79c3997707a60fc93d0dff",
+      "css": "temperature_high",
+      "code": 63337,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "b8cd656944888c73d335f702628190cb",
+      "css": "temperature_low",
+      "code": 63339,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "4efb719e797c54b3c58e5ae061d29d53",
+      "css": "droplet",
+      "code": 59393,
+      "src": "entypo"
+    }
+  ]
+}
