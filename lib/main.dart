@@ -6,6 +6,7 @@ import 'package:meteo_koji/view/home_page.dart';
 import 'controller/color.dart';
 
 void main() {
+  //Force Portrait mode
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => runApp(MyApp()),

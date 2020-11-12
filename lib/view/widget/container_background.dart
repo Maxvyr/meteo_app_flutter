@@ -5,6 +5,7 @@ import '../../controller/icon_weather_icons.dart';
 import '../../models/weather_city.dart';
 import '../../view/widget/my_text.dart';
 
+// ignore: must_be_immutable
 class ContainerCity extends StatelessWidget {
   //imageBackground
   NetworkImage imgNight = NetworkImage("https://imgur.com/8MmKx2M.png");
@@ -30,23 +31,25 @@ class ContainerCity extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          MyText(
-            data: cityChoice ?? "",
-            fontSize: 40.0,
-            fontWeight: FontWeight.w900,
-            color: white,
-          ),
-          MyText(
-            data: weatherCity.description,
-            fontSize: 30.0,
-            color: white,
-          ),
-          Card(
-            color: transparent,
-            child: Row(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: grey.withOpacity(0.3),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            MyText(
+              data: cityChoice ?? "",
+              fontSize: 40.0,
+              fontWeight: FontWeight.w900,
+              color: white,
+            ),
+            MyText(
+              data: weatherCity.description,
+              fontSize: 30.0,
+              color: white,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.network(
@@ -61,18 +64,18 @@ class ContainerCity extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              extraWeather("${weatherCity.max.toStringAsFixed(1)} °C",
-                  IconWeather.temperature_high),
-              extraWeather("${weatherCity.min.toStringAsFixed(1)} °C",
-                  IconWeather.temperature_low),
-              extraWeather("${weatherCity.humidity}%", IconWeather.droplet)
-            ],
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                extraWeather("${weatherCity.max.toStringAsFixed(1)} °C",
+                    IconWeather.temperature_high),
+                extraWeather("${weatherCity.min.toStringAsFixed(1)} °C",
+                    IconWeather.temperature_low),
+                extraWeather("${weatherCity.humidity}%", IconWeather.droplet)
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
