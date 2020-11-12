@@ -23,7 +23,7 @@ class WeatherCity {
   var degWind;
   Map clouds;
   var allClouds;
-  var dt;
+  int dt;
   Map sys;
   var typeSys;
   var idSys;

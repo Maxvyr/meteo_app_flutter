@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
-import 'package:meteo_koji/view/widget/my_input_decoration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +15,8 @@ import '../view/widget/my_appbar.dart';
 import '../view/widget/my_text.dart';
 import '../view/widget/my_divider.dart';
 import '../controller/constants.dart' as constants;
+import '../controller/utils/time_format.dart';
+import '../view/widget/my_input_decoration.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -100,6 +102,16 @@ class _HomePageState extends State<HomePage> {
                           colorShadow: transparent,
                         ),
                         onPressed: addCity,
+                      ),
+                      Row(
+                        children: [
+                          Spacer(),
+                          MyText(
+                            data: timeNowFormat(),
+                            color: white,
+                            fontSize: 10.0,
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -274,7 +286,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// CALL API OPEN WEATHER MAP ----------------------------------
-
   void sendCoordsToAPI() {
     //init var
     double latitude, longitude;
@@ -311,6 +322,7 @@ class _HomePageState extends State<HomePage> {
       /// converti le body response in json and pass them
       /// in the Obect WeatherCity
       var json = jsonDecode(response.body);
+      // print(response.body);
       setState(
         () {
           weatherCity = WeatherCity.fromJson(json);
