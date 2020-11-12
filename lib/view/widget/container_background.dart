@@ -5,7 +5,7 @@ import 'package:meteo_koji/controller/icon_weather_icons.dart';
 import 'package:meteo_koji/models/weather_city.dart';
 import 'package:meteo_koji/view/widget/my_text.dart';
 
-class ContainerBackground extends StatelessWidget {
+class ContainerCity extends StatelessWidget {
   //imageBackground
   NetworkImage imgNight = NetworkImage("https://imgur.com/8MmKx2M.png");
   NetworkImage imgBadWeather = NetworkImage("https://imgur.com/tyJiWK4.png");
@@ -14,13 +14,10 @@ class ContainerBackground extends StatelessWidget {
   //var
   WeatherCity weatherCity;
   String cityChoice;
-  String cityLiving;
 
-  ContainerBackground(
-      WeatherCity weatherCity, String cityChoice, String CityLiving) {
+  ContainerCity(WeatherCity weatherCity, String cityChoice) {
     this.weatherCity = weatherCity;
     this.cityChoice = cityChoice;
-    this.cityLiving = cityLiving;
   }
 
   @override
@@ -39,7 +36,7 @@ class ContainerBackground extends StatelessWidget {
         children: [
           MyText(
             //todo showing name living city
-            data: weatherCity == null ? cityLiving : cityChoice,
+            data: cityChoice ?? "",
             fontSize: 40.0,
             fontWeight: FontWeight.w900,
             color: colorFunctionOfWeather(),

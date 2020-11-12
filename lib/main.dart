@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meteo_koji/controller/constants.dart';
 import 'package:meteo_koji/view/home_page.dart';
 
 import 'controller/color.dart';
@@ -37,12 +38,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: titleApp,
       theme: ThemeData(
-        primarySwatch: blue,
+        primarySwatch: indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(title: 'Meteo Flut'),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(title: titleApp),
     );
   }
 }

@@ -6,6 +6,8 @@ import 'package:location/location.dart';
 import 'package:meteo_koji/controller/color.dart';
 import 'package:meteo_koji/models/weather_city.dart';
 import 'package:meteo_koji/view/widget/container_background.dart';
+import 'package:meteo_koji/view/widget/loading_indicator.dart';
+import 'package:meteo_koji/view/widget/my_appbar.dart';
 import 'package:meteo_koji/view/widget/my_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -50,17 +52,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: MyText(data: widget.title),
+      appBar: MyAppBar(
+        title: widget.title,
       ),
       drawer: drawerMeteo(),
       body: weatherCity == null
-          ? Center(
-              child: MyText(
-                data: cityChoice ?? cityLiving,
-              ),
-            )
-          : ContainerBackground(weatherCity, cityChoice, cityLiving),
+          ? LoadingIndicator()
+          : ContainerCity(weatherCity, cityChoice),
     );
   }
 
