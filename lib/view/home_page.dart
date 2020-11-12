@@ -3,14 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
-import 'package:meteo_koji/controller/color.dart';
-import 'package:meteo_koji/models/weather_city.dart';
-import 'package:meteo_koji/view/widget/container_background.dart';
-import 'package:meteo_koji/view/widget/loading_indicator.dart';
-import 'package:meteo_koji/view/widget/my_appbar.dart';
-import 'package:meteo_koji/view/widget/my_text.dart';
+import 'package:meteo_koji/view/widget/my_input_decoration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
+import '../controller/color.dart';
+import '../models/weather_city.dart';
+import '../view/widget/container_background.dart';
+import '../view/widget/loading_indicator.dart';
+import '../view/widget/my_appbar.dart';
+import '../view/widget/my_text.dart';
+import '../view/widget/my_divider.dart';
+import '../controller/constants.dart' as constants;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -65,53 +69,62 @@ class _HomePageState extends State<HomePage> {
   Drawer drawerMeteo() {
     return Drawer(
       child: Container(
-        color: blue,
+        color: indigo,
         child: ListView.builder(
           itemCount: cities.length + 2,
           itemBuilder: (context, position) {
             switch (position) {
               case 0:
                 return DrawerHeader(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MyText(
-                      data: "Mes Villes",
-                      color: white,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w900,
-                    ),
-                    RaisedButton(
-                      elevation: 10.0,
-                      color: white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: MyText(
-                        data: "Ajouter une ville",
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MyText(
+                        data: constants.myCities,
+                        color: white,
                         fontStyle: FontStyle.normal,
-                        color: black,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.w900,
                       ),
-                      onPressed: addCity,
-                    ),
-                  ],
-                ));
+                      RaisedButton(
+                        elevation: 10.0,
+                        color: white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: MyText(
+                          data: constants.addACity,
+                          fontSize: 20.0,
+                          fontStyle: FontStyle.normal,
+                          color: black,
+                          colorShadow: transparent,
+                        ),
+                        onPressed: addCity,
+                      ),
+                    ],
+                  ),
+                );
                 break;
               case 1:
-                return ListTile(
-                  title: MyText(
-                    data: cityLiving,
-                    color: white,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      cityChoice = null;
-                      coordsCityChoice = null;
-                      sendCoordsToAPI();
-                      Navigator.pop(context);
-                    });
-                  },
+                return Column(
+                  children: [
+                    MyDivider(),
+                    ListTile(
+                      title: MyText(
+                        data: cityLiving,
+                        color: white,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          cityChoice = null;
+                          coordsCityChoice = null;
+                          sendCoordsToAPI();
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    MyDivider(),
+                  ],
                 );
                 break;
               default:
@@ -147,23 +160,26 @@ class _HomePageState extends State<HomePage> {
   Future addCity() async {
     return showDialog(
       context: context,
+      useSafeArea: false,
       barrierDismissible: true,
       builder: (BuildContext ctx) {
         return SimpleDialog(
           contentPadding: EdgeInsets.all(20.0),
           title: MyText(
-            data: "Ajoutez une ville",
+            data: constants.addACity,
             fontSize: 25.0,
-            color: blue,
+            fontWeight: FontWeight.w900,
+            color: indigo,
+            colorShadow: transparent,
           ),
           children: [
             TextField(
-              decoration: InputDecoration(labelText: "Ville :"),
+              decoration: MyInputDecoration(),
               onSubmitted: (String str) {
                 addStringListSharedPref(str);
                 Navigator.pop(context);
               },
-            )
+            ),
           ],
         );
       },
