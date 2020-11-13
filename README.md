@@ -7,10 +7,10 @@ Use API Open Weather Map to check the weather of the location or the city select
 
 ## Screenshot
 
-![ScreenShor00](https://imgur.com/uknrO6C.png)
-![ScreenShor01](https://imgur.com/ljUds9A.png)
-![ScreenShor02](https://imgur.com/OmJhqGl.png)
-![ScreenShor03](https://imgur.com/0RTktQj.png)
+![ScreenShor00](https://imgur.com/uknrO6Cm.png)
+![ScreenShor01](https://imgur.com/ljUds9Am.png)
+![ScreenShor02](https://imgur.com/OmJhqGlm.png)
+![ScreenShor03](https://imgur.com/0RTktQjm.png)
 
 
 ## Requirements
