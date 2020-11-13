@@ -5,7 +5,13 @@
 ## Features to develop
 Use API Open Weather Map to check the weather of the location or the city select by the user
 
-## Screenshot (coming soon)
+## Screenshot
+
+![ScreenShor00](https://imgur.com/uknrO6C.png)
+![ScreenShor01](https://imgur.com/ljUds9A.png)
+![ScreenShor02](https://imgur.com/OmJhqGl.png)
+![ScreenShor03](https://imgur.com/0RTktQj.png)
+
 
 ## Requirements
 * Computer (Windows, Mac or Linux)
@@ -45,3 +51,12 @@ Use API Open Weather Map to check the weather of the location or the city select
 * [Download Android Studio](https://developer.android.com/studio)
 * [Create a new virtual device](https://developer.android.com/studio/run/managing-avds.html)
 * [Enable developer options and debugging](https://developer.android.com/studio/debug/dev-options.html#enable)
+
+
+# Tips
+
+<a href="https://www.buymeacoffee.com/Maxvy" target="_blank"><img src="https://i.imgur.com/CNigpZm.png" alt="A Little Coffee Please" style="height: 25px;width: 50px;" ></a>
+
+# Crypto Tips 
+
+![ETH_QR_Code](https://i.imgur.com/XpF2vgw.png)
