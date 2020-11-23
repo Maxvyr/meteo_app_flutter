@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
+import 'package:meteo_koji/controller/utils/key.dart' as keyApi;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,7 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //variables
-  String key = "LISTE_VILLES";
+  String keySharedPref = "LISTE_VILLES";
   List<String> cities = [];
   String cityChoice;
   String cityLiving = "Ville Actuelle";
@@ -202,7 +203,8 @@ class _HomePageState extends State<HomePage> {
 
   void getListSharedPref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    List<String> listeStocker = await sharedPreferences.getStringList(key);
+    List<String> listeStocker =
+        await sharedPreferences.getStringList(keySharedPref);
     if (listeStocker != null) {
       setState(() {
         cities = listeStocker;
@@ -213,14 +215,14 @@ class _HomePageState extends State<HomePage> {
   void addStringListSharedPref(String city) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     cities.add(city);
-    await sharedPreferences.setStringList(key, cities);
+    await sharedPreferences.setStringList(keySharedPref, cities);
     getListSharedPref();
   }
 
   void deleteStringListSharedPref(String city) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     cities.remove(city);
-    await sharedPreferences.setStringList(key, cities);
+    await sharedPreferences.setStringList(keySharedPref, cities);
     getListSharedPref();
   }
 
@@ -304,9 +306,8 @@ class _HomePageState extends State<HomePage> {
   void formatUrlApi(double latitude, double longitude) {
     //recover lang Smartphone
     String lang = Localizations.localeOf(context).languageCode;
-    final String key = "a6a18c57fb2e85d26a89f08d32caf0d8";
     //organisation diff string for call
-    String urlApiKey = "&appid=$key";
+    String urlApiKey = "&appid=${keyApi.key}";
     String urlApiBase = "https://api.openweathermap.org/data/2.5/weather?";
     String urlApiCoords = "lat=$latitude&lon=$longitude";
     String urlApiMetrics = "&units=metric";
