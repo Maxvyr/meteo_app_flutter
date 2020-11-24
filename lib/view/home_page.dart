@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
-import 'package:meteo_koji/controller/utils/key.dart' as keyApi;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -307,7 +306,8 @@ class _HomePageState extends State<HomePage> {
     //recover lang Smartphone
     String lang = Localizations.localeOf(context).languageCode;
     //organisation diff string for call
-    String urlApiKey = "&appid=${keyApi.key}";
+    final String key = "TODO add your api KEY HERE (OPEN WEATHER MAP)";
+    String urlApiKey = "&appid=$key";
     String urlApiBase = "https://api.openweathermap.org/data/2.5/weather?";
     String urlApiCoords = "lat=$latitude&lon=$longitude";
     String urlApiMetrics = "&units=metric";
