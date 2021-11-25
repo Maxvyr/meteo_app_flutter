@@ -10,16 +10,11 @@ Use API Open Weather Map to check the weather of the location or the city select
 
 <a href="https://play.google.com/store/apps/developer?id=Pandamy" target="_blank"><img src="https://i.imgur.com/YetVBL1.png" alt="Get in on PlayStore" style="height: 25px; width: 50px;" ></a>
 
-contact : pandamydev@gmail.com 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A72UVP8)
 
-# Tips
+## Crypto Tips
 
-* [Donation](https://ko-fi.com/maxvyr)
-
-# Crypto Tips 
-
-
-![ETH_QR_Code](https://i.imgur.com/XpF2vgw.png)
+![https://i.imgur.com/4bS8l7R.png](https://i.imgur.com/4bS8l7R.png)
 
 ## Screenshot
 
