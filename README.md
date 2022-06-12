@@ -14,7 +14,7 @@ Use API Open Weather Map to check the weather of the location or the city select
 
 ## Crypto Tips
 
-![https://i.imgur.com/wuW30D4.png](https://i.imgur.com/wuW30D4.png)
+![https://raw.githubusercontent.com/Maxvyr/Maxvyr/main/img/tips/github-tips-crypto.png](https://raw.githubusercontent.com/Maxvyr/Maxvyr/main/img/tips/github-tips-crypto.png)
 
 ## Screenshot
 
